@@ -12,7 +12,10 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
-      /// \DONE Autocorrelation r[l] computed
+      /// \DONE
+      /// - inicializamos a 0
+      /// - acumulamos valores
+      
       r[l] = 0;
       for (unsigned int n = l; n < x.size(); n++){
         r[l] += x[n-l]*x[n];
@@ -56,7 +59,7 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    /// \DONE
+
     if (pot > umb_pot && r1norm > umb_R1 && rmaxnorm > umb_RMax && zrc < umb_ZRC)
       return false;
     else
@@ -85,7 +88,6 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-  /// \DONE
     for(iR = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++){
       if(*iR > *iRMax){
         iRMax = iR;

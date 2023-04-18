@@ -44,7 +44,6 @@ int main(int argc, const char *argv[]) {
 	/// \TODO 
 	///  Modify the program syntax and the call to **docopt()** in order to
 	///  add options and arguments to the program.
-  /// \DONE
     std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
         {argv + 1, argv + argc},	// array of arguments, without the program name
         true,    // show help if requested
@@ -77,7 +76,6 @@ int main(int argc, const char *argv[]) {
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
-  /// \DONE
   unsigned int i;
   for (i = 0; i < x.size(); i++){
     if (x[i] > clipping)
@@ -99,7 +97,6 @@ int main(int argc, const char *argv[]) {
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
-  /// \DONE
   for (i = 1; i < f0.size()-1; i++){
     vector<float> aux;
     aux.push_back(f0[i-1]);
