@@ -30,6 +30,10 @@ namespace upc {
       samplingFreq, ///< sampling rate (in samples per second). Has to be set in the constructor call
       npitch_min, ///< minimum value of pitch period, in samples
       npitch_max; ///< maximum value of pitch period, in samples
+    float umb_pot, ///< umbral potencia en dB
+      umb_R1, /// < umbral autocorrelación normalizada r1
+      umb_RMax, /// < umbral autocorrelación normalizada rmax
+      umb_ZRC;
  
 	///
 	/// Computes correlation from lag=0 to r.size()
@@ -44,13 +48,17 @@ namespace upc {
 	///
 	/// Returns true is the frame is unvoiced
 	///
-    bool unvoiced(float pot, float r1norm, float rmaxnorm) const;
+    bool unvoiced(float pot, float r1norm, float rmaxnorm, float zrc) const;
 
 
   public:
     PitchAnalyzer(	unsigned int fLen,			///< Frame length in samples
-					unsigned int sFreq,			///< Sampling rate in Hertzs
-					Window w=PitchAnalyzer::HAMMING,	///< Window type
+          unsigned int sFreq,			///< Sampling rate in Hertzs
+					float umbral_pot,
+          float umbral_R1,
+          float umbral_RMax,
+          float umbral_ZRC,
+          Window w=PitchAnalyzer::HAMMING,	///< Window type
 					float min_F0 = MIN_F0,		///< Pitch range should be restricted to be above this value
 					float max_F0 = MAX_F0		///< Pitch range should be restricted to be below this value
 				 )
@@ -59,6 +67,10 @@ namespace upc {
       samplingFreq = sFreq;
       set_f0_range(min_F0, max_F0);
       set_window(w);
+      umb_pot = umbral_pot;
+      umb_R1 = umbral_R1;
+      umb_RMax = umbral_RMax;
+      umb_ZRC = umbral_ZRC;
     }
 
 	///
