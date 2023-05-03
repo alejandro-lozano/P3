@@ -99,8 +99,83 @@ Ejercicios básicos
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
+	> Para calcular el pitch, necesitamos encontrar la posición del primer máximo secundario de la autocorrelación. Esto se hace encontrando el primer valor
+	> máximo de la autocorrelación y luego buscando el siguiente máximo que no esté cerca del máximo principal. La distancia entre estos dos máximos se llama lag 
+	> y se utiliza para calcular el pitch en Hz. Si trabajamos con una trama sorda, no podremos encontrar el pitch y devolveremos un valor de 0. Por otro lado, 
+	> si trabajamos con una trama sonora, devolveremos su pitch en Hz. El código para calcular el pitch es el siguiente:
+
+	```cpp
+	    float PitchAnalyzer::compute_pitch(vector<float> & x) const {
+	    if (x.size() != frameLen)
+	      return -1.0F;
+
+	    //Window input frame
+	    for (unsigned int i=0; i<x.size(); ++i)
+	      x[i] *= window[i];
+
+	    vector<float> r(npitch_max);
+
+	    //Compute correlation
+	    autocorrelation(x, r);
+
+	    vector<float>::const_iterator iR = r.begin(), iRMax = r.begin() + npitch_min;
+
+	    /// \TODO 
+		/// Find the lag of the maximum value of the autocorrelation away from the origin.<br>
+		/// Choices to set the minimum value of the lag are:
+		///    - The first negative value of the autocorrelation.
+		///    - The lag corresponding to the maximum value of the pitch.
+	    ///	   .
+		/// In either case, the lag should not exceed that of the minimum value of the pitch.
+	    for(iR = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++){
+	      if(*iR > *iRMax){
+		iRMax = iR;
+	      }
+	    }
+
+	    unsigned int lag = iRMax - r.begin();
+
+	    float pot = 10 * log10(r[0]);
+
+	    //You can print these (and other) features, look at them using wavesurfer
+	    //Based on that, implement a rule for unvoiced
+	    //change to #if 1 and compile
+	#if 1
+	    if (r[0] > 0.0F)
+	      cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl; 
+	#endif
+	
+	    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
+	      return 0;
+	    else
+	      return (float) samplingFreq/(float) lag;
+	  }
+	}
+	
+	```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
+
+	```cpp
+	bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
+		/// \TODO Implement a rule to decide whether the sound is voiced or not.
+		/// * You can use the standard features (pot, r1norm, rmaxnorm),
+		///   or compute and use other ones.
+		
+		if (pot < -30 || r1norm < 0.8 || rmaxnorm < 0.3)
+			return true;
+		else
+			return false;
+	```
+	Con estos parámetros hemos obtenido:
+	<img width="373" alt="image" src="https://user-images.githubusercontent.com/125287859/235879403-6031ca9e-5395-452e-a796-e4c225c4bd10.png">
+	Optimizandolos a:
+	```cpp
+	if (pot < -30 || r1norm < 0.8 || rmaxnorm < 0.3)
+	```
+	Obtenemos:
+	<img width="372" alt="image" src="https://user-images.githubusercontent.com/125287859/235878990-b246b53e-c2d6-4a7b-bb28-bb85767fdb84.png">
+
 
    * Puede serle útil seguir las instrucciones contenidas en el documento adjunto `código.pdf`.
 
