@@ -167,13 +167,19 @@ Ejercicios básicos
 		else
 			return false;
 	```
-	Con estos parámetros hemos obtenido:
+	> Con estos parámetros hemos obtenido:
+	
 	<img width="373" alt="image" src="https://user-images.githubusercontent.com/125287859/235879403-6031ca9e-5395-452e-a796-e4c225c4bd10.png">
-	Optimizandolos a:
+	
+	> Optimizandolos a:
+	
 	```cpp
-	if (pot < -30 || r1norm < 0.8 || rmaxnorm < 0.3)
+	
+	if (pot < -23 || r1norm < 0.5 || rmaxnorm < 0.4)
+	
 	```
-	Obtenemos:
+	> Obtenemos:
+	
 	<img width="372" alt="image" src="https://user-images.githubusercontent.com/125287859/235878990-b246b53e-c2d6-4a7b-bb28-bb85767fdb84.png">
 
 
@@ -195,6 +201,29 @@ Ejercicios básicos
 	    Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que
 		en esta práctica es de 15 ms.
 
+		```c
+		FILE *r1 = fopen("r1.txt", "w+");
+		FILE *rmax = fopen("rmax.txt", "w+");  
+		FILE *potf = fopen("pot.txt", "w+");
+		
+		  fprintf(r1 , "%f \n", r[1]/r[0]);
+		  fprintf(rmax , "%f \n", r[lag]/r[0]);
+		  fprintf(potf , "%f \n", pot);
+		```
+		
+		<img width="958" alt="image" src="https://user-images.githubusercontent.com/125287859/235891112-a4c6f1f6-aa4e-4d56-89c9-42d9ff925569.png">
+
+
+		> En las siguientes figuras se muestran la potencia en dB, la autocorrelación normalizada en 1 y la autocorrelación normalizada en el primer máximo 
+		> secundario. Estos parámetros son utilizados en la implementación de la regla de decisión, como se detalla en la sección anterior.
+
+		> Después de analizar el audio rl002.wav con WaveSurfer, hemos observado que la potencia es útil para determinar cuándo la persona habla. Sin 
+		> embargo, no es un buen indicador para detectar con precisión los segmentos sonoros. Por otro lado, las gráficas de autocorrelación señalan con 
+		> mayor precisión los segmentos sonoros. Observamos que r1 marca los segmentos sonoros de forma más suave, mientras que rmax los marca de 
+		> forma más abrupta. Cada enfoque tiene sus ventajas y desventajas.
+
+		> Por lo tanto, concluimos que el resultado óptimo se obtendrá a partir de la combinación de los tres parámetros mencionados anteriormente.
+		
       - Use el estimador de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos estimadores.
@@ -205,6 +234,15 @@ Ejercicios básicos
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
+	> A base de prueba y error y habiendo implementado los métodos de preprocesado y postprocesado
+	> * **pot** = -18
+	> * **r1norm** = 0.5
+	> * **rmaxnorm** = 0.4
+	>
+	> Las tasas de error obtenidas son las siguientes:
+	>
+	> <img width="366" alt="image" src="https://user-images.githubusercontent.com/125287859/235901248-f4a1a9e5-197f-488e-8ec7-8f78d301b4e6.png">
+
 
 Ejercicios de ampliación
 ------------------------
