@@ -230,6 +230,53 @@ Ejercicios básicos
      
 		Aunque puede usar el propio Wavesurfer para obtener la representación, se valorará
 	 	el uso de alternativas de mayor calidad (particularmente Python).
+		
+  	> Wavesurfer:
+  	
+	<img width="659" alt="image" src="https://user-images.githubusercontent.com/125287859/235916604-16ab24f5-5761-4cfe-a191-114a7e907681.png">
+	
+	> Python3:
+	> _Código_:
+	
+	``cpp
+		import numpy as np
+		import matplotlib
+		matplotlib.use('TkAgg')
+		import matplotlib.pyplot as plt
+		import matplotlib.gridspec as gridspec
+
+		pitch_programa = np.loadtxt('prueba_good.f0')
+		pitch_wave = np.loadtxt('pitch_wave.f0')
+
+		# Create 2x2 sub plots
+		gs = gridspec.GridSpec(2, 2)
+
+		plt.figure()
+		ax = plt.subplot(gs[0, 0]) # row 0, col 0
+		plt.plot(pitch_programa, '8', c='blue', markersize = 1)
+		plt.title('Pitch Programa', fontweight = 'bold')
+		plt.xlabel('s', fontsize = 10)
+		plt.ylabel('Hz', fontsize = 10)
+
+		ax = plt.subplot(gs[0, 1]) # row 0, col 1
+		plt.plot(pitch_wave, 'D', c='red', markersize = 1)
+		plt.title('Pitch WaveSurfer', fontweight = 'bold')
+		plt.xlabel('s', fontsize = 10)
+		plt.ylabel('Hz', fontsize = 10)
+
+		ax = plt.subplot(gs[1, :]) # row 1, span all columns
+		plt.plot(pitch_programa, '8', c='blue', markersize = 1)
+		plt.plot(pitch_wave, 'D', c='red', markersize = 1)
+		plt.title('Programa vs Wave', fontweight = 'bold')
+		plt.xlabel('s', fontsize = 10)
+		plt.ylabel('Hz', fontsize = 10)
+
+		plt.tight_layout()
+		plt.show()
+	```
+	
+	![Figure_comparación](https://user-images.githubusercontent.com/125287859/235917277-357b0a34-4e40-4e2c-a0b0-0c1018ba50e7.png)
+
   
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
