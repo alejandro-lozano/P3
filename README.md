@@ -238,7 +238,7 @@ Ejercicios básicos
 	> Python3:
 	> _Código_:
 	
-	``cpp
+	```cpp
 		import numpy as np
 		import matplotlib
 		matplotlib.use('TkAgg')
@@ -273,6 +273,7 @@ Ejercicios básicos
 
 		plt.tight_layout()
 		plt.show()
+	
 	```
 	
 	![Figure_comparación](https://user-images.githubusercontent.com/125287859/235917277-357b0a34-4e40-4e2c-a0b0-0c1018ba50e7.png)
