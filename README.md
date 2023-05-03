@@ -330,7 +330,53 @@ Ejercicios de ampliación
   También se valorará la realización de un estudio de los parámetros involucrados. Por ejemplo, si se opta
   por implementar el filtro de mediana, se valorará el análisis de los resultados obtenidos en función de
   la longitud del filtro.
-   
+   - Preprocesado
+    * Center clipping
+  > Se ha utilizado una técnica de preprocesamiento 'center clipping' con offset, que consiste en eliminar los valores de la señal que son menores que un
+  > umbral específico. Esta técnica aumenta la robustez de la señal para resistir el ruido. Además, se ha añadido un parámetro (clip) en el docopt para facilitar la 
+  > optimización de este umbral.
+  > El siguiente es el código del center clipping implementado:
+
+	```cpp
+	 int i;
+ 	 for (i = 0; i < x.size(); i++){
+ 		if (x[i] > clip)
+   			x[i] = x[i] - clip;
+ 		else if (x[i] < -1 * clip)
+   			x[i] = x[i] + clip;
+ 		else
+   			x[i] = 0;
+ 	 }
+	 ```
+	 
+	> SIN CLIPPING:
+
+	<img width="368" alt="image" src="https://user-images.githubusercontent.com/125287859/235910819-25807fd1-2b27-49c0-91eb-60b412298a0a.png">
+	
+	> CON CLIPPING:
+
+	<img width="367" alt="image" src="https://user-images.githubusercontent.com/125287859/235911707-f6e71524-3d7d-4e06-8169-ac0a3deee6d1.png">
+
+
+	> Grafica demostrativa:
+
+	![Figure_clipping](https://user-images.githubusercontent.com/125287859/235911159-30c91bdf-7c98-4e9d-87b4-b884dc0c717d.png)
+
+	 
+- Postprocesado
+    * Filtro de mediana de 3 coeficientes
+
+	```cpp
+	 for (i = 1; i < f0.size()-1; i++){
+	    vector<float> aux;
+	    aux.push_back(f0[i-1]);
+	    aux.push_back(f0[i]);
+	    aux.push_back(f0[i+1]);
+	    std::sort (aux.begin(), aux.end());
+	    f0[i] = aux[1];
+  	 }
+	```
+
 
 Evaluación *ciega* del estimador
 -------------------------------
