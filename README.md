@@ -246,8 +246,8 @@ Ejercicios básicos
 		import matplotlib.pyplot as plt
 		import matplotlib.gridspec as gridspec
 
-		pitch_programa = np.loadtxt('prueba.f0')
-		pitch_wave = np.loadtxt('pitch.f0ref')
+		pitch_programa = np.loadtxt('pitch_programa.f0')
+		pitch_wave = np.loadtxt('pitch_wave.f0')
 
 		# Create 2x2 sub plots
 		gs = gridspec.GridSpec(2, 2)
@@ -277,7 +277,8 @@ Ejercicios básicos
 	
 	```
 	
-	![Figure_comparación](https://user-images.githubusercontent.com/125287859/236246909-de095758-8948-4af1-a0e6-38804d5e2bba.png)
+	![Figure_comparación](https://user-images.githubusercontent.com/125287859/236263157-6aa91a36-aa90-4a8f-b8f5-6717db3c5dc1.png)
+
 
 
   
@@ -381,7 +382,8 @@ Ejercicios de ampliación
 	
 	![Figure_comparativa_mediana](https://user-images.githubusercontent.com/125287859/236251122-f9d8564d-5e94-4cb2-96d6-4c885adbcf11.png)
 	
-	> Podemos observar cómo uno de los valores no tiene ninguna lógica y el programa logra corregir la incoheréncia a través de este filtro.
+	> Hemos reutilizado el código python para comparar ambas señales. Podemos observar cómo uno de los valores no tiene ninguna lógica y el programa logra 
+	> corregir la incoheréncia a través de este filtro.
 
 	>SIN FILTRO DE MEDIANA:
 
