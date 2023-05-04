@@ -279,7 +279,8 @@ Ejercicios básicos
 	
 	![Figure_comparación](https://user-images.githubusercontent.com/125287859/236263157-6aa91a36-aa90-4a8f-b8f5-6717db3c5dc1.png)
 
-
+	>Nota: En el archivo _get_pitch_ hemos cambiado el valor de #define FRAME_SHIFT de 0.015 a 0.010 para lograr una mejor superposición de los dos pitches en la 
+	>tercera gráfica.
 
   
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
