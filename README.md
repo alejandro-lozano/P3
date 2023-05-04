@@ -236,6 +236,7 @@ Ejercicios básicos
 	<img width="659" alt="image" src="https://user-images.githubusercontent.com/125287859/235916604-16ab24f5-5761-4cfe-a191-114a7e907681.png">
 	
 	> Python3:
+	> 
 	> _Código_:
 	
 	```cpp
@@ -245,8 +246,8 @@ Ejercicios básicos
 		import matplotlib.pyplot as plt
 		import matplotlib.gridspec as gridspec
 
-		pitch_programa = np.loadtxt('prueba_good.f0')
-		pitch_wave = np.loadtxt('pitch_wave.f0')
+		pitch_programa = np.loadtxt('prueba.f0')
+		pitch_wave = np.loadtxt('pitch.f0ref')
 
 		# Create 2x2 sub plots
 		gs = gridspec.GridSpec(2, 2)
@@ -276,7 +277,8 @@ Ejercicios básicos
 	
 	```
 	
-	![Figure_comparación](https://user-images.githubusercontent.com/125287859/235917277-357b0a34-4e40-4e2c-a0b0-0c1018ba50e7.png)
+	![Figure_comparación](https://user-images.githubusercontent.com/125287859/236246909-de095758-8948-4af1-a0e6-38804d5e2bba.png)
+
 
   
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
@@ -376,6 +378,19 @@ Ejercicios de ampliación
 	    f0[i] = aux[1];
   	 }
 	```
+	
+	![Figure_comparativa_mediana](https://user-images.githubusercontent.com/125287859/236251122-f9d8564d-5e94-4cb2-96d6-4c885adbcf11.png)
+	
+	> Podemos observar cómo uno de los valores no tiene ninguna lógica y el programa logra corregir la incoheréncia a través de este filtro.
+
+	>SIN FILTRO DE MEDIANA:
+
+	<img width="368" alt="image" src="https://user-images.githubusercontent.com/125287859/236252179-0e8352c2-c48f-44e3-a16c-e5c33c358640.png">
+
+	> CON FILTRO DE MEDIANA:
+
+	<img width="371" alt="image" src="https://user-images.githubusercontent.com/125287859/236252346-4578cb11-60cf-4537-9def-0b625a5c972b.png">
+
 
 
 Evaluación *ciega* del estimador
