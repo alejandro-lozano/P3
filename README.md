@@ -391,6 +391,25 @@ Ejercicios de ampliación
 
 	<img width="371" alt="image" src="https://user-images.githubusercontent.com/125287859/236252346-4578cb11-60cf-4537-9def-0b625a5c972b.png">
 
+- Optimización
+
+	> Para optimizar, hemos decidido intentar crear un archivo de script de shell llamado "optimización.sh" que realizará un ciclo a través de una serie de 
+	> parámetros y luego ejecutará el "run_get_pitch" junto con "evaluate". Por último, hemos usado el _pipe_ "grep", con el que obtendremos el resultado total.
+
+	```cpp
+	#!/bin/bash 
+
+	for umb_pot in $(seq -10 1 -25);do
+	    for clipping in $(seq 0.00001 0.00005 0.001);do
+		for umb_R1 in $(seq 0.4 0.01 0.6);do
+		    echo -n "umb_pot=$umb_pot clipping=$clipping umb_R1=$umb_R1 umb_RMax=0.4 "
+		    ./scripts/run_get_pitch.sh $umb_pot $clipping $umb_R1 0.4  > /dev/null
+		    pitch_evaluate pitch_db/train/*f0ref | fgrep TOTAL  
+	    done
+	done | sort -t: -k 2n;
+
+	exit 0
+	```
 
 
 Evaluación *ciega* del estimador
