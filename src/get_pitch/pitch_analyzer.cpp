@@ -6,6 +6,12 @@
 
 using namespace std;
 
+static int segments = 0;
+/*FILE *r1 = fopen("r1.txt", "w+");
+FILE *rmax = fopen("rmax.txt", "w+");  
+FILE *potf = fopen("pot.txt", "w+");
+*/
+
 /// Name space of UPC
 namespace upc {
   void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
@@ -55,15 +61,16 @@ namespace upc {
       npitch_max = frameLen/2;
   }
 
-  bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm, float zrc) const {
-    /// \TODO Implement a rule to decide whether the sound is voiced or not.
-    /// * You can use the standard features (pot, r1norm, rmaxnorm),
-    ///   or compute and use other ones.
-
-    if (pot > umb_pot && r1norm > umb_R1 && rmaxnorm > umb_RMax && zrc < umb_ZRC)
-      return false;
-    else
+ bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
+ 	/// \TODO Implement a rule to decide whether the sound is voiced or not.
+ 	/// * You can use the standard features (pot, r1norm, rmaxnorm),
+ 	///   or compute and use other ones.
+ 	/// \DONE
+  
+    if (pot < umb_pot || r1norm < umb_R1 || rmaxnorm < umb_RMax)
       return true;
+    else
+      return false;
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -88,6 +95,7 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
+  /// \DONE 
     for(iR = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++){
       if(*iR > *iRMax){
         iRMax = iR;
@@ -101,20 +109,41 @@ namespace upc {
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
-#if 0
+#if 1
     if (r[0] > 0.0F)
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl; 
 #endif
 
-    double zcr =0;
-       for(unsigned int i =1; i < x.size();i++){
-      if((x[i]>0 && x[i-1]<0) || (x[i]<0 && x[i-1]>0) ) //falta considerar caso 0
-   	    zcr++;
-      }
 
-    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0],zcr))
+  /*fprintf(r1 , "%f \n", r[1]/r[0]);
+  fprintf(rmax , "%f \n", r[lag]/r[0]);
+  fprintf(potf , "%f \n", pot);
+  */
+
+    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
       return 0;
-    else
+    else{
+        /*
+        if(segments == 4){
+           FILE *f_x = fopen("sin_clipp.txt", "w+");
+           FILE *f_r = fopen("con_clipp.txt", "w+");
+          
+           for(unsigned int i =0; i<x.size(); i++){
+             fprintf(f_x , "%f \n", x[i]);
+            
+           }
+            for(unsigned int i =0; i<r.size(); i++){
+              fprintf(f_r, "%f \n", r[i]);
+            
+            }
+          
+           fclose(f_r);
+           fclose(f_x);
+         }
+      segments++;
+      */
+
       return (float) samplingFreq/(float) lag;
+    } 
   }
 }

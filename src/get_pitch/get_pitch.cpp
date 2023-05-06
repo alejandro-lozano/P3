@@ -29,7 +29,7 @@ Options:
     -1 FLOAT, --umb_R1=FLOAT      Umbral para autocorrelación r1norm [default: 0.5]
     -2 FLOAT, --umb_RMax=FLOAT      Umbral para autocorrelación rmaxnorm [default: 0.4]  
     -c FLOAT, --clipping=FLOAT    Umbral para center clipping [default: 0.0001]
-    -z FLOAT, --umb_ZRC=FLOAT    Umbral para zero-crossing [default: 160]
+
     -h, --help                Show this screen
     --version                 Show the version of the project
 
@@ -44,6 +44,7 @@ int main(int argc, const char *argv[]) {
 	/// \TODO 
 	///  Modify the program syntax and the call to **docopt()** in order to
 	///  add options and arguments to the program.
+  /// \DONE 
     std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
         {argv + 1, argv + argc},	// array of arguments, without the program name
         true,    // show help if requested
@@ -55,7 +56,7 @@ int main(int argc, const char *argv[]) {
   float umb_R1 = stof(args["--umb_R1"].asString());
   float umb_RMax = stof(args["--umb_RMax"].asString());
   float clipping = stof(args["--clipping"].asString());
-  float umb_ZRC = stof(args["--umb_ZRC"].asString());
+  //float umb_ZRC = stof(args["--umb_ZRC"].asString());
 
 
 
@@ -71,11 +72,14 @@ int main(int argc, const char *argv[]) {
   int n_shift = rate * FRAME_SHIFT;
 
   // Define analyzer
-  PitchAnalyzer analyzer(n_len, rate, umb_pot, umb_R1, umb_RMax, umb_ZRC, PitchAnalyzer::RECT, 50, 500);
+  PitchAnalyzer analyzer(n_len, rate, umb_pot, umb_R1, umb_RMax, PitchAnalyzer::RECT, 50, 500);
 
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
+  /// \DONE
+  //Clipping
+
   unsigned int i;
   for (i = 0; i < x.size(); i++){
     if (x[i] > clipping)
@@ -86,6 +90,7 @@ int main(int argc, const char *argv[]) {
       x[i] = 0;
   }
   
+
   // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
   vector<float> f0;
@@ -97,6 +102,9 @@ int main(int argc, const char *argv[]) {
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
+  /// \DONE
+  //MEDIAN FILTER
+
   for (i = 1; i < f0.size()-1; i++){
     vector<float> aux;
     aux.push_back(f0[i-1]);
@@ -105,7 +113,7 @@ int main(int argc, const char *argv[]) {
     std::sort (aux.begin(), aux.end());
     f0[i] = aux[1];
   }
-
+ 
   // Write f0 contour into the output file
   ofstream os(output_txt);
   if (!os.good()) {
