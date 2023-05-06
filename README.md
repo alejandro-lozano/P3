@@ -240,44 +240,44 @@ Ejercicios básicos
 	> _Código_:
 	
 	```cpp
-		import numpy as np
-		import matplotlib
-		matplotlib.use('TkAgg')
-		import matplotlib.pyplot as plt
-		import matplotlib.gridspec as gridspec
+	import numpy as np
+	import matplotlib
+	matplotlib.use('TkAgg')
+	import matplotlib.pyplot as plt
+	import matplotlib.gridspec as gridspec
 
-		pitch_programa = np.loadtxt('pitch_programa.f0')
-		pitch_wave = np.loadtxt('pitch_wave.f0')
+	pitch_prog = np.loadtxt('pitch_programa.f0')
+	pitch_wave = np.loadtxt('pitch_wave.f0')
 
-		# Create 2x2 sub plots
-		gs = gridspec.GridSpec(2, 2)
+	# Create 2x2 sub plots
+	gs = gridspec.GridSpec(2, 2)
 
-		plt.figure()
-		ax = plt.subplot(gs[0, 0]) # row 0, col 0
-		plt.plot(pitch_programa, '8', c='blue', markersize = 1)
-		plt.title('Pitch Programa', fontweight = 'bold')
-		plt.xlabel('s', fontsize = 10)
-		plt.ylabel('Hz', fontsize = 10)
+	plt.figure()
+	ax = plt.subplot(gs[0, 0]) # row 0, col 0
+	plt.plot(pitch_prog, '8', c='blue', markersize = 1)
+	plt.title('Pitch sistema própio', fontweight = 'bold')
+	plt.xlabel('s', fontsize = 10)
+	plt.ylabel('Hz', fontsize = 10)
 
-		ax = plt.subplot(gs[0, 1]) # row 0, col 1
-		plt.plot(pitch_wave, 'D', c='red', markersize = 1)
-		plt.title('Pitch WaveSurfer', fontweight = 'bold')
-		plt.xlabel('s', fontsize = 10)
-		plt.ylabel('Hz', fontsize = 10)
+	ax = plt.subplot(gs[0, 1]) # row 0, col 1
+	plt.plot(pitch_wave, 'D', c='red', markersize = 1)
+	plt.title('Pitch WaveSurfer', fontweight = 'bold')
+	plt.xlabel('s', fontsize = 10)
+	plt.ylabel('Hz', fontsize = 10)
 
-		ax = plt.subplot(gs[1, :]) # row 1, span all columns
-		plt.plot(pitch_programa, '8', c='blue', markersize = 1)
-		plt.plot(pitch_wave, 'D', c='red', markersize = 1)
-		plt.title('Programa vs Wave', fontweight = 'bold')
-		plt.xlabel('s', fontsize = 10)
-		plt.ylabel('Hz', fontsize = 10)
+	ax = plt.subplot(gs[1, :]) # row 1, span all columns
+	plt.plot(pitch_prog, '8', c='blue', markersize = 1)
+	plt.plot(pitch_wave, 'D', c='red', markersize = 1)
+	plt.title('Comparación del pitch', fontweight = 'bold')
+	plt.xlabel('s', fontsize = 10)
+	plt.ylabel('Hz', fontsize = 10)
 
-		plt.tight_layout()
-		plt.show()
+	plt.tight_layout()
+	plt.show()
 	
 	```
 	
-	![Figure_comparación](https://user-images.githubusercontent.com/125287859/236263157-6aa91a36-aa90-4a8f-b8f5-6717db3c5dc1.png)
+	![Figure_comparación](https://user-images.githubusercontent.com/125287859/236612896-fa5a09d2-0703-477e-a06b-eef0ad6dd201.png)
 
 	>Nota: En el archivo _get_pitch_ hemos cambiado el valor de #define FRAME_SHIFT de 0.015 a 0.010 para lograr una mejor superposición de los dos pitches en la 
 	>tercera gráfica.
