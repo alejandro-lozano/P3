@@ -233,7 +233,7 @@ Ejercicios básicos
 		
   	> Wavesurfer:
   	
-	<img width="659" alt="image" src="https://user-images.githubusercontent.com/125287859/235916604-16ab24f5-5761-4cfe-a191-114a7e907681.png">
+	<img width="730" alt="image" src="https://user-images.githubusercontent.com/125287859/236612610-6b17c605-4e2a-4995-8c18-d316f596d0b1.png">
 	
 	> Python3:
 	> 
