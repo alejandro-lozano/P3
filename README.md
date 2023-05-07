@@ -311,6 +311,63 @@ Ejercicios de ampliación
     
     <img width="621" alt="image" src="https://user-images.githubusercontent.com/125287859/235902308-039ef216-659c-4fd0-ae3f-515f81caee36.png">
 
+	```cpp
+	    
+	 Usage:
+	    get_pitch [options] <input-wav> <output-txt>
+	    get_pitch (-h | --help)
+	    get_pitch --version
+
+	Options:
+	    -0 FLOAT, --umb_pot=FLOAT      Umbral potencia en dB [default: -18]
+	    -1 FLOAT, --umb_R1=FLOAT      Umbral para autocorrelación r1norm [default: 0.5]
+	    -2 FLOAT, --umb_RMax=FLOAT      Umbral para autocorrelación rmaxnorm [default: 0.4]  
+	    -c FLOAT, --clipping=FLOAT    Umbral para center clipping [default: 0.0001]
+
+	    -h, --help                Show this screen
+	    --version                 Show the version of the project
+
+	Arguments:
+	    input-wav   Wave file with the audio signal
+	    output-txt  Output file: ASCII file with the result of the detection:
+			    - One line per frame with the estimated f0
+			    - If considered unvoiced, f0 must be set to f0 = 0
+	)";
+
+	int main(int argc, const char *argv[]) {
+		/// \TODO 
+		///  Modify the program syntax and the call to **docopt()** in order to
+		///  add options and arguments to the program.
+	  /// \DONE 
+	    std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
+		{argv + 1, argv + argc},	// array of arguments, without the program name
+		true,    // show help if requested
+		"2.0");  // version string
+
+		std::string input_wav = args["<input-wav>"].asString();
+		std::string output_txt = args["<output-txt>"].asString();
+	  float umb_pot = stof(args["--umb_pot"].asString());
+	  float umb_R1 = stof(args["--umb_R1"].asString());
+	  float umb_RMax = stof(args["--umb_RMax"].asString());
+	  float clipping = stof(args["--clipping"].asString());
+
+	```
+
+
+	```cpp
+	
+	bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
+ 	/// \TODO Implement a rule to decide whether the sound is voiced or not.
+ 	/// * You can use the standard features (pot, r1norm, rmaxnorm),
+ 	///   or compute and use other ones.
+ 	/// \DONE
+
+	    if (pot < this->umb_pot || r1norm < this->umb_R1 || rmaxnorm < this->umb_RMax)
+	      return true;
+	    else
+	      return false;
+  	}
+	```
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de estimación
   de pitch.
 
