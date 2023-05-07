@@ -67,7 +67,7 @@ namespace upc {
  	///   or compute and use other ones.
  	/// \DONE
   
-    if (pot < umb_pot || r1norm < umb_R1 || rmaxnorm < umb_RMax)
+    if (pot < this->umb_pot || r1norm < this->umb_R1 || rmaxnorm < this->umb_RMax)
       return true;
     else
       return false;

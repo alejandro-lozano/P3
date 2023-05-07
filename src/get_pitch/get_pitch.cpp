@@ -56,8 +56,6 @@ int main(int argc, const char *argv[]) {
   float umb_R1 = stof(args["--umb_R1"].asString());
   float umb_RMax = stof(args["--umb_RMax"].asString());
   float clipping = stof(args["--clipping"].asString());
-  //float umb_ZRC = stof(args["--umb_ZRC"].asString());
-
 
 
   // Read input sound file
@@ -72,7 +70,7 @@ int main(int argc, const char *argv[]) {
   int n_shift = rate * FRAME_SHIFT;
 
   // Define analyzer
-  PitchAnalyzer analyzer(n_len, rate, umb_pot, umb_R1, umb_RMax, PitchAnalyzer::RECT, 50, 500);
+  PitchAnalyzer analyzer(n_len, rate, this->umb_pot, this->umb_R1, this->umb_RMax, PitchAnalyzer::RECT, 50, 500);
 
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
