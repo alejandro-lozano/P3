@@ -311,6 +311,20 @@ Ejercicios de ampliación
     
     <img width="621" alt="image" src="https://user-images.githubusercontent.com/125287859/235902308-039ef216-659c-4fd0-ae3f-515f81caee36.png">
 
+	```cpp
+	
+	bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
+ 	/// \TODO Implement a rule to decide whether the sound is voiced or not.
+ 	/// * You can use the standard features (pot, r1norm, rmaxnorm),
+ 	///   or compute and use other ones.
+ 	/// \DONE
+
+	    if (pot < this->umb_pot || r1norm < this->umb_R1 || rmaxnorm < this->umb_RMax)
+	      return true;
+	    else
+	      return false;
+  	}
+	```
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de estimación
   de pitch.
 
